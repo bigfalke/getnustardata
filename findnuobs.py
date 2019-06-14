@@ -6,7 +6,9 @@ Usage:
 This script queries SIMBAD to get the coordiantes of SOURCE, 
 then finds the corresponding ObsIDs fur NuSTAR in the numaster table at HEASARC.
 
-Output can be either a textfile or something else (TBD).
+Output can be printed to screen and saved as text file.
+
+If called as module, no output is given, but list of astropy-tables is returned with all ObsIDs.
 
 Options:
     SOURCE       source name (one or multiple), put in quotes if it contains whitespaces
@@ -33,7 +35,7 @@ from docopt import docopt
 def findmyobs (snames):
       ## query SIMBAD with source names
       ## only exit with error if none of the sources was found
-      restab = Simbad.query_objects(snames)
+      restab = Simbad.query_objects(getsnames)
       if not (restab):
           print("ERROR (findnuobs): No object found by Simbad query!")
           sys.exit(1)
