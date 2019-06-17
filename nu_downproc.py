@@ -48,8 +48,8 @@ def downproc(obsid, args):
     
     print(("wget --verbose=1 -nH --no-check-certificate --cut-dirs=6 -r -l0 -c -N -np -R \'index*\' -erobots=off --retr-symlinks {0}".format(nuurl)))
     try:
-        print(('wget running ({0})'.format('e')))
-        # call("wget", "-q", "-nH", "--no-check-certificate", "--cut-dirs=6", "-r", "-l0", "-c", "-N", "-np", "-R", "\'index*\'", "-erobots=off", "--retr-symlinks", "{0}".format(nuurl))
+        # print(('wget running ({0})'.format('e')))
+        call("wget", "-q", "-nH", "--no-check-certificate", "--cut-dirs=6", "-r", "-l0", "-c", "-N", "-np", "-R", "\'index*\'", "-erobots=off", "--retr-symlinks", "{0}".format(nuurl))
     except subprocess.CalledProcessError as e:
         print(('wget failed ({0})'.format(e)))
         sys.exit(1)
@@ -67,8 +67,8 @@ def downproc(obsid, args):
     #     print ("Creation of the directory %s failed (file exists?)" % fullpath)
                     
     try:
-        print ('move running to {0}/{1}'.format(xcalpath,obsid))
-        # call('mv', '{0}'.format(obsid), '{0}/{1}'.format(xcalpath,obsid))
+        # print ('move running to {0}/{1}'.format(xcalpath,obsid))
+        call('mv', '{0}'.format(obsid), '{0}/{1}'.format(xcalpath,obsid))
     except subprocess.CalledProcessError:
         print(('Could not move files to {0}/{1}'.format(xcalpath,obsid)))
         sys.exit(1)
@@ -93,11 +93,11 @@ def downproc(obsid, args):
         ## so split by CHU combination
         RUNSPLITSC='yes'
         
-        # call("nupipeline",'clobber=yes',
-        # 'indir={0}'.format(fullpath),
-        # f'steminput={STEMINPUTS}',
-        # 'outdir={0}/{1}'.format(fullpath,'event_cl_py'),
-        # f'runsplitsc={RUNSPLITSC}')
+        call("nupipeline",'clobber=yes',
+        'indir={0}'.format(fullpath),
+        f'steminput={STEMINPUTS}',
+        'outdir={0}/{1}'.format(fullpath,'event_cl_py'),
+        f'runsplitsc={RUNSPLITSC}')
         # f'entrystage={ENTRYSTAGE}',
         # f'exitstage={EXITSTAGE}')
         # f'gtiscreen={GTISCREEN}',
@@ -113,8 +113,8 @@ def downproc(obsid, args):
 
     if not (args['--keep_orig_cl_ev']):
         try:
-            print ('removing {0}/{1}'.format(fullpath,'event_cl'))
-            # shutil.rmtree('{0}/{1}'.format(fullpath,'event_cl'))
+            # print ('removing {0}/{1}'.format(fullpath,'event_cl'))
+            shutil.rmtree('{0}/{1}'.format(fullpath,'event_cl'))
         except OSError as e:
             print(('Could not delete folder {0} ({1})'.format(e.filename, e.strerror)))
             sys.exit(1)
